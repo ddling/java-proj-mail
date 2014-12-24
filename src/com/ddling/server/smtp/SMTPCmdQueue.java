@@ -1,8 +1,6 @@
 package com.ddling.server.smtp;
 
-import com.ddling.server.smtp.State.AuthLogin;
-import com.ddling.server.smtp.State.Helo;
-import com.ddling.server.smtp.State.State;
+import com.ddling.server.smtp.State.*;
 import com.ddling.utils.Constants;
 
 import java.util.LinkedList;
@@ -26,22 +24,62 @@ public class SMTPCmdQueue {
 
             if (currentState instanceof Helo) {
                 if (currentState.process(smtpThread, cmd)) {
-                    int serverType = smtpThread.getCurrentServerType();
-                    if (serverType == Constants.SERVER_TYPE_FOR_CLIENT) {
-                        cmdQueue.remove();
-                        cmdQueue.add(new AuthLogin());
-                        System.out.print("add auth login");
-                    } else if (serverType == Constants.SERVER_TYPE_FOR_SERVER) {
-                    }
+                    processHelo(smtpThread);
                 }
             }
 
-            if (currentState instanceof AuthLogin) {
+            if (currentState instanceof Auth) {
                 if (currentState.process(smtpThread, cmd)) {
-                    cmdQueue.remove();
-                    System.out.print("Auth login success");
+                    processAuth();
+                }
+            }
+
+            if (currentState instanceof Login) {
+                if (currentState.process(smtpThread, cmd)) {
+                    processLogin();
+                }
+            }
+
+            if (currentState instanceof Mail) {
+                if (currentState.process(smtpThread, cmd)) {
+                    processMail();
+                }
+            }
+
+            if (currentState instanceof Rcpt) {
+                if (currentState.process(smtpThread, cmd)) {
+                    processRcpt();
                 }
             }
         }
+    }
+
+    private void processHelo(SMTPThread smtpThread) {
+        int serverType = smtpThread.getCurrentServerType();
+        if (serverType == Constants.SERVER_TYPE_FOR_CLIENT) {
+            cmdQueue.remove();
+            cmdQueue.add(new Auth());
+        } else if (serverType == Constants.SERVER_TYPE_FOR_SERVER) {
+        }
+    }
+
+    private void processAuth() {
+        cmdQueue.remove();
+        cmdQueue.add(new Login());
+    }
+
+    private void processLogin() {
+        cmdQueue.remove();
+        cmdQueue.add(new Mail());
+    }
+
+    private void processMail() {
+        cmdQueue.remove();
+        cmdQueue.add(new Rcpt());
+    }
+
+    private void processRcpt() {
+        cmdQueue.remove();
+        cmdQueue.add(new Data());
     }
 }
