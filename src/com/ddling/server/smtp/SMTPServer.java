@@ -15,8 +15,7 @@ import org.apache.log4j.Logger;
  * Created by ddling on 2014/12/24.
  */
 public class SMTPServer implements Runnable {
-    private static int   SERVER_TYPE_FOR_SERVER = 0;
-    private static int   SERVER_TYPE_FOR_CLIENT = 1;
+
     private int          port                   = 25;
     private ServerSocket serverSocket           = null;
     private Executor     service                = null;
@@ -32,6 +31,10 @@ public class SMTPServer implements Runnable {
     public SMTPServer(int server_type, int port) {
         cureent_server_Type = server_type;
         this.port           = port;
+    }
+
+    public int getCurrentServerType() {
+        return cureent_server_Type;
     }
 
     /**

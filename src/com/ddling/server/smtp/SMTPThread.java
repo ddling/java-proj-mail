@@ -1,5 +1,6 @@
 package com.ddling.server.smtp;
 
+import com.ddling.server.smtp.State.Helo;
 import com.ddling.utils.LoggerFactory;
 import org.apache.log4j.Logger;
 
@@ -9,7 +10,6 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 
 import java.net.Socket;
-import java.net.SocketException;
 import java.net.SocketTimeoutException;
 
 /**
@@ -21,6 +21,7 @@ public class SMTPThread implements Runnable {
     private PrintWriter    out                 = null;
     private int            cureent_server_Type = -1;
     private Socket         clientSocket        = null;
+    private SMTPCmdQueue   smtpCmdQueue        = null;
 
     public static Logger logger = LoggerFactory.getLogger(SMTPThread.class);
 
@@ -36,6 +37,10 @@ public class SMTPThread implements Runnable {
     public void printToClient(String response) {
         out.println(response);
         out.flush();
+    }
+
+    public int getCurrentServerType() {
+        return cureent_server_Type;
     }
 
     /**
@@ -59,16 +64,20 @@ public class SMTPThread implements Runnable {
             clientSocket.setSoTimeout(SO_TIMEOUT);
             in  = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
             out = new PrintWriter(clientSocket.getOutputStream());
-        } catch (SocketException e) {
+        } catch (SocketTimeoutException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
 
+        printToClient("220 ddling mail system ");
+
+        smtpCmdQueue = new SMTPCmdQueue();
+
         while (true) {
             try {
-                String line = in.readLine();
-
+                String cmd = in.readLine();
+                smtpCmdQueue.process(this, cmd);
                 if (clientSocket == null) {
                     break;
                 }
