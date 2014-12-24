@@ -1,0 +1,4 @@
+24 [Thread-0] INFO com.ddling.server.smtp.SMTPServer - SMTP server start at port 1198
+123380 [Thread-0] INFO com.ddling.server.smtp.SMTPServer - Client /127.0.0.1Connected to SMTP server
+11 [Thread-0] INFO com.ddling.server.smtp.SMTPServer - SMTP server start at port 1198
+13294 [Thread-0] INFO com.ddling.server.smtp.SMTPServer - Client /127.0.0.1 Connected to SMTP server
