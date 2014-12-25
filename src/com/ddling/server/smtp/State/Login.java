@@ -16,7 +16,6 @@ public class Login extends State {
     }
 
     public boolean process(SMTPThread smtpThread, String str) {
-        System.out.println("login ...");
         if (currentState.equals(state[0])) {
             smtpThread.printToClient("334 " + Base64.encodeBase64String("password:".getBytes()));
             currentState = state[1];

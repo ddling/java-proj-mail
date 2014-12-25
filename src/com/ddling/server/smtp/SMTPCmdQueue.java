@@ -51,6 +51,18 @@ public class SMTPCmdQueue {
                     processRcpt();
                 }
             }
+
+            if (currentState instanceof Data) {
+                if (currentState.process(smtpThread, cmd)) {
+                    processData();
+                }
+            }
+
+            if (currentState instanceof SendEmail) {
+                if (currentState.process(smtpThread, cmd)) {
+                    cmdQueue.remove();
+                }
+            }
         }
     }
 
@@ -60,6 +72,8 @@ public class SMTPCmdQueue {
             cmdQueue.remove();
             cmdQueue.add(new Auth());
         } else if (serverType == Constants.SERVER_TYPE_FOR_SERVER) {
+            cmdQueue.remove();
+            cmdQueue.add(new Mail());
         }
     }
 
@@ -81,5 +95,10 @@ public class SMTPCmdQueue {
     private void processRcpt() {
         cmdQueue.remove();
         cmdQueue.add(new Data());
+    }
+
+    private void processData() {
+        cmdQueue.remove();
+        cmdQueue.add(new SendEmail());
     }
 }

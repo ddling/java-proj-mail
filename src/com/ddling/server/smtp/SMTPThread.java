@@ -1,6 +1,5 @@
 package com.ddling.server.smtp;
 
-import com.ddling.server.smtp.State.Helo;
 import com.ddling.utils.LoggerFactory;
 import org.apache.log4j.Logger;
 
@@ -22,12 +21,14 @@ public class SMTPThread implements Runnable {
     private int            cureent_server_Type = -1;
     private Socket         clientSocket        = null;
     private SMTPCmdQueue   smtpCmdQueue        = null;
+    private MailContent    mailContent         = null;
 
     public static Logger logger = LoggerFactory.getLogger(SMTPThread.class);
 
     public SMTPThread(Socket clientSocket, int server_type) {
         this.clientSocket   = clientSocket;
         cureent_server_Type = server_type;
+        mailContent = new MailContent();
     }
 
     /**
@@ -41,6 +42,14 @@ public class SMTPThread implements Runnable {
 
     public int getCurrentServerType() {
         return cureent_server_Type;
+    }
+
+    public MailContent getMailContent() {
+        return mailContent;
+    }
+
+    public void setMailContent(MailContent mailContent) {
+        this.mailContent = mailContent;
     }
 
     /**
