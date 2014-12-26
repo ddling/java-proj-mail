@@ -236,13 +236,19 @@ public class SMTPClient {
     }
 
     public static void main(String[] args) {
+        System.out.println("fsdfa");
         MailContent mailContent = new MailContent();
+<<<<<<< Updated upstream
         mailContent.setFrom("jtdx_159020@sohu.com");
         mailContent.setTo("465391062@qq.com");
+=======
+        mailContent.setFrom("wangtaoking1@127.0.0.1");
+        mailContent.setTo("sysuyezhiqi@163.com");
+>>>>>>> Stashed changes
         mailContent.setSubject("Hello");
-        String body = "mail from:<" + mailContent.getFrom() + ">" + "\r\n";
-        body += "rcpt to:<" + mailContent.getTo() + ">" + "\r\n";
-        body += "Subject:This is a test email" + "\r\n";
+        String body = "from:<" + mailContent.getFrom() + ">" + "\n";
+        body += "to:<" + mailContent.getTo() + ">" + "\n";
+        body += "Subject:This is a test email" + "\n";
         body += "\n";
         body += "Hello World!";
         System.out.println(body);

@@ -227,6 +227,7 @@ Hello World!done!
 1135 [main] DEBUG com.ddling.server.smtp.SMTPClient - Send .done!
 1459 [main] DEBUG com.ddling.server.smtp.SMTPClient - 554 DT:SPM mx37, V8CowEAJ7kpgFJxUr_6lAw--.17649S2 1419514976 http://mail.163.com/help/help_spam_16.htm?ip=222.200.185.75&hostid=mx37&time=1419514976
 1459 [main] ERROR com.ddling.server.smtp.SMTPClient - java.io.IOException: Send Email Content fail
+<<<<<<< Updated upstream
 285 [main] INFO com.ddling.server.smtp.SMTPClient - Connect to 163mx02.mxmail.netease.com At port 25
 500 [main] DEBUG com.ddling.server.smtp.SMTPClient - 220 163.com Anti-spam GT for Coremail System (163com[20141201])
 500 [main] INFO com.ddling.server.smtp.SMTPClient - Connect to 163mx02.mxmail.netease.comdone!
@@ -281,3 +282,39 @@ Hello World!done!
 2261 [main] INFO com.ddling.server.smtp.SMTPClient - Send Email Content done!
 2404 [main] DEBUG com.ddling.server.smtp.SMTPClient - 221 Bye
 2404 [main] INFO com.ddling.server.smtp.SMTPClient - Quit Done!
+=======
+10331 [main] INFO com.ddling.server.smtp.SMTPClient - Connect to sohumx1.sohu.com At port 25
+5254 [main] INFO com.ddling.server.smtp.SMTPClient - Connect to 163mx01.mxmail.netease.com At port 25
+6598 [main] DEBUG com.ddling.server.smtp.SMTPClient - 220 163.com Anti-spam GT for Coremail System (163com[20141201])
+6598 [main] INFO com.ddling.server.smtp.SMTPClient - Connect to 163mx01.mxmail.netease.comdone!
+6599 [main] DEBUG com.ddling.server.smtp.SMTPClient - Send HELO 163mx01.mxmail.netease.comdone!
+7775 [main] DEBUG com.ddling.server.smtp.SMTPClient - 250 OK
+7775 [main] INFO com.ddling.server.smtp.SMTPClient - ehlo done!
+7776 [main] DEBUG com.ddling.server.smtp.SMTPClient - Send MAIL FROM:<wangtaoking1@163.com>done!
+7894 [main] DEBUG com.ddling.server.smtp.SMTPClient - 553 Requested action not taken: no smtp MX only,mx42,XMCowED5SlvxNJxUlr5iAA--.44S2 1419523314
+7894 [main] ERROR com.ddling.server.smtp.SMTPClient - java.io.IOException: Send Email Header fail!
+5245 [main] INFO com.ddling.server.smtp.SMTPClient - Connect to 163mx01.mxmail.netease.com At port 25
+5365 [main] DEBUG com.ddling.server.smtp.SMTPClient - 220 163.com Anti-spam GT for Coremail System (163com[20141201])
+5365 [main] INFO com.ddling.server.smtp.SMTPClient - Connect to 163mx01.mxmail.netease.comdone!
+5365 [main] DEBUG com.ddling.server.smtp.SMTPClient - Send HELO 163mx01.mxmail.netease.comdone!
+5415 [main] DEBUG com.ddling.server.smtp.SMTPClient - 250 OK
+5415 [main] INFO com.ddling.server.smtp.SMTPClient - ehlo done!
+5415 [main] DEBUG com.ddling.server.smtp.SMTPClient - Send MAIL FROM:<wangtaoking1@127.0.0.1>done!
+5466 [main] DEBUG com.ddling.server.smtp.SMTPClient - 250 Mail OK
+5466 [main] DEBUG com.ddling.server.smtp.SMTPClient - Send RCPT TO:<sysuyezhiqi@163.com>done!
+5516 [main] DEBUG com.ddling.server.smtp.SMTPClient - 250 Mail OK
+5517 [main] INFO com.ddling.server.smtp.SMTPClient - Send Email Header done!
+5517 [main] DEBUG com.ddling.server.smtp.SMTPClient - Send DATAdone!
+5564 [main] DEBUG com.ddling.server.smtp.SMTPClient - 354 End data with <CR><LF>.<CR><LF>
+5564 [main] DEBUG com.ddling.server.smtp.SMTPClient - Send from:<wangtaoking1@127.0.0.1>
+to:<sysuyezhiqi@163.com>
+Subject:This is a test email
+
+Hello World!done!
+5565 [main] DEBUG com.ddling.server.smtp.SMTPClient - Send .done!
+5670 [main] DEBUG com.ddling.server.smtp.SMTPClient - 451 DT:SPM mx42, XMCowEAZwE1DNZxUaNViAA--.529S2, please try again 1419523395 http://mail.163.com/help/help_spam_16.htm?ip=121.33.190.184&hostid=mx42&time=1419523395
+5670 [main] ERROR com.ddling.server.smtp.SMTPClient - java.io.IOException: Send Email Content fail
+10145 [main] INFO com.ddling.server.smtp.SMTPClient - Connect to 163mx03.mxmail.netease.com At port 25
+29192 [main] ERROR com.ddling.server.smtp.SMTPClient - java.net.ConnectException: Connection refused
+29193 [main] ERROR com.ddling.server.smtp.SMTPClient - java.lang.NullPointerException
+>>>>>>> Stashed changes
