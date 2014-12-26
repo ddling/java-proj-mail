@@ -38,7 +38,7 @@ public class SMTPServer implements Runnable {
     }
 
     /**
-     * start the smtp server and wait for client to connect
+     * 在指定端口打开Smtp服务器并等待客户端连接
      */
     private void startSmtpServer() {
         try {
@@ -62,7 +62,7 @@ public class SMTPServer implements Runnable {
     }
 
     /**
-     * Stop the smtp server
+     * 关闭Smtp服务器
      */
     private void stop() {
         if (serverSocket != null) {

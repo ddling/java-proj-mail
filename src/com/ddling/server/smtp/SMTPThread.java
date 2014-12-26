@@ -32,8 +32,8 @@ public class SMTPThread implements Runnable {
     }
 
     /**
-     * Print the response string to client
-     * @param response Response String
+     * 输出响应值给客户端
+     * @param response 响应字符串
      */
     public void printToClient(String response) {
         out.println(response);
@@ -53,7 +53,7 @@ public class SMTPThread implements Runnable {
     }
 
     /**
-     * Close the current client connection
+     * 关闭当前客户端连接
      */
     public void close() {
         if (clientSocket != null) {
@@ -68,6 +68,10 @@ public class SMTPThread implements Runnable {
         }
     }
 
+    /**
+     * 主要流程是：
+     * 读取客户端的指令，对客户端中的每一条指令，服务器返回对应的响应值。
+     */
     public void run() {
         try {
             clientSocket.setSoTimeout(SO_TIMEOUT);
