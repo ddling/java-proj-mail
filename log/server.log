@@ -227,3 +227,44 @@ Hello World!done!
 1135 [main] DEBUG com.ddling.server.smtp.SMTPClient - Send .done!
 1459 [main] DEBUG com.ddling.server.smtp.SMTPClient - 554 DT:SPM mx37, V8CowEAJ7kpgFJxUr_6lAw--.17649S2 1419514976 http://mail.163.com/help/help_spam_16.htm?ip=222.200.185.75&hostid=mx37&time=1419514976
 1459 [main] ERROR com.ddling.server.smtp.SMTPClient - java.io.IOException: Send Email Content fail
+285 [main] INFO com.ddling.server.smtp.SMTPClient - Connect to 163mx02.mxmail.netease.com At port 25
+500 [main] DEBUG com.ddling.server.smtp.SMTPClient - 220 163.com Anti-spam GT for Coremail System (163com[20141201])
+500 [main] INFO com.ddling.server.smtp.SMTPClient - Connect to 163mx02.mxmail.netease.comdone!
+576 [main] DEBUG com.ddling.server.smtp.SMTPClient - 250 OK
+576 [main] INFO com.ddling.server.smtp.SMTPClient - ehlo done!
+651 [main] DEBUG com.ddling.server.smtp.SMTPClient - 250 Mail OK
+727 [main] DEBUG com.ddling.server.smtp.SMTPClient - 250 Mail OK
+727 [main] INFO com.ddling.server.smtp.SMTPClient - Send Email Header done!
+803 [main] DEBUG com.ddling.server.smtp.SMTPClient - 354 End data with <CR><LF>.<CR><LF>
+997 [main] DEBUG com.ddling.server.smtp.SMTPClient - 554 DT:SPM mx35, VcCowEDpkUTvFJxUx_XmBA--.647S2 1419515119 http://mail.163.com/help/help_spam_16.htm?ip=222.200.185.75&hostid=mx35&time=1419515119
+997 [main] ERROR com.ddling.server.smtp.SMTPClient - java.io.IOException: Send Email Content fail
+653 [main] INFO com.ddling.server.smtp.SMTPClient - Connect to 163mx03.mxmail.netease.com At port 25
+1951 [main] DEBUG com.ddling.server.smtp.SMTPClient - 220 163.com Anti-spam GT for Coremail System (163com[20141201])
+1951 [main] INFO com.ddling.server.smtp.SMTPClient - Connect to 163mx03.mxmail.netease.comdone!
+2002 [main] DEBUG com.ddling.server.smtp.SMTPClient - 250 OK
+2002 [main] INFO com.ddling.server.smtp.SMTPClient - ehlo done!
+2056 [main] DEBUG com.ddling.server.smtp.SMTPClient - 250 Mail OK
+2109 [main] DEBUG com.ddling.server.smtp.SMTPClient - 250 Mail OK
+2109 [main] INFO com.ddling.server.smtp.SMTPClient - Send Email Header done!
+2160 [main] DEBUG com.ddling.server.smtp.SMTPClient - 354 End data with <CR><LF>.<CR><LF>
+2304 [main] DEBUG com.ddling.server.smtp.SMTPClient - 554 DT:SPM mx40, WsCowEBZp0nV5pxU7QezBQ--.559S2 1419568855 http://mail.163.com/help/help_spam_16.htm?ip=222.200.185.75&hostid=mx40&time=1419568855
+2304 [main] ERROR com.ddling.server.smtp.SMTPClient - java.io.IOException: Send Email Content fail
+310 [main] INFO com.ddling.server.smtp.SMTPClient - Connect to sohumx1.sohu.com At port 25
+489 [main] DEBUG com.ddling.server.smtp.SMTPClient - 220-sohumx71_42.sohu.com ESMTP Postfix
+489 [main] ERROR com.ddling.server.smtp.SMTPClient - java.lang.NumberFormatException: For input string: "220-sohumx71_42.sohu.com"
+291 [main] INFO com.ddling.server.smtp.SMTPClient - Connect to sohumx1.sohu.com At port 25
+389 [main] DEBUG com.ddling.server.smtp.SMTPClient - 220-sohumx71_39.sohu.com ESMTP Postfix
+390 [main] ERROR com.ddling.server.smtp.SMTPClient - java.lang.NumberFormatException: For input string: "220-sohumx71_39.sohu.com"
+320 [main] INFO com.ddling.server.smtp.SMTPClient - Connect to mx3.qq.com At port 25
+544 [main] DEBUG com.ddling.server.smtp.SMTPClient - 220 newmx62.qq.com MX QQ Mail Server
+544 [main] INFO com.ddling.server.smtp.SMTPClient - Connect to mx3.qq.comdone!
+636 [main] DEBUG com.ddling.server.smtp.SMTPClient - 250 newmx62.qq.com
+636 [main] INFO com.ddling.server.smtp.SMTPClient - ehlo done!
+729 [main] DEBUG com.ddling.server.smtp.SMTPClient - 250 Ok
+981 [main] DEBUG com.ddling.server.smtp.SMTPClient - 250 Ok
+981 [main] INFO com.ddling.server.smtp.SMTPClient - Send Email Header done!
+1070 [main] DEBUG com.ddling.server.smtp.SMTPClient - 354 End data with <CR><LF>.<CR><LF>
+1593 [main] DEBUG com.ddling.server.smtp.SMTPClient - 250 Ok: queued as 
+1593 [main] INFO com.ddling.server.smtp.SMTPClient - Send Email Content done!
+1678 [main] DEBUG com.ddling.server.smtp.SMTPClient - 221 Bye
+1678 [main] INFO com.ddling.server.smtp.SMTPClient - Quit Done!

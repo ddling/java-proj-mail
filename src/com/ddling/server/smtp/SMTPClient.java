@@ -145,8 +145,6 @@ public class SMTPClient {
     private void sendData(String s) {
         out.println(s);
         out.flush();
-
-        logger.debug("Send " + s + "done!");
     }
 
     private void initClient() {
@@ -195,8 +193,8 @@ public class SMTPClient {
 
     public static void main(String[] args) {
         MailContent mailContent = new MailContent();
-        mailContent.setFrom("465391062@qq.com");
-        mailContent.setTo("sysuyezhiqi@163.com");
+        mailContent.setFrom("jtdx_159020@sohu.com");
+        mailContent.setTo("465391062@qq.com");
         mailContent.setSubject("Hello");
         String body = "mail from:<" + mailContent.getFrom() + ">" + "\r\n";
         body += "rcpt to:<" + mailContent.getTo() + ">" + "\r\n";
