@@ -8,6 +8,7 @@ import java.util.Queue;
 
 /**
  * Created by ddling on 2014/12/24.
+ * 命令队列，对客户端发来的消息进行分析并处理，返回特定信息
  */
 public class SMTPCmdQueue {
 
@@ -19,45 +20,56 @@ public class SMTPCmdQueue {
     }
 
     public void process(SMTPThread smtpThread, String cmd) {
+
+        // 当命令队列不为空时，处理位于队列头的客户端发来的指令
         if (!cmdQueue.isEmpty()) {
+
+            // 队列头部的状态指令
             State currentState = cmdQueue.element();
 
+            // 处理HELO指令
             if (currentState instanceof Helo) {
                 if (currentState.process(smtpThread, cmd)) {
                     processHelo(smtpThread);
                 }
             }
 
+            // 处理AUTH指令
             if (currentState instanceof Auth) {
                 if (currentState.process(smtpThread, cmd)) {
                     processAuth();
                 }
             }
 
+            // 处理LOGIN指令
             if (currentState instanceof Login) {
                 if (currentState.process(smtpThread, cmd)) {
                     processLogin();
                 }
             }
 
+            // 处理MAIL指令
             if (currentState instanceof Mail) {
                 if (currentState.process(smtpThread, cmd)) {
                     processMail();
                 }
             }
 
+            // 处理RCPT指令
             if (currentState instanceof Rcpt) {
                 if (currentState.process(smtpThread, cmd)) {
                     processRcpt();
                 }
             }
 
+            // 处理DATA指令
             if (currentState instanceof Data) {
                 if (currentState.process(smtpThread, cmd)) {
                     processData();
                 }
             }
 
+            // 处理SENDMAIL
             if (currentState instanceof SendEmail) {
                 if (currentState.process(smtpThread, cmd)) {
                     cmdQueue.remove();
@@ -66,6 +78,12 @@ public class SMTPCmdQueue {
         }
     }
 
+    /**
+     * 处理HELO指令，判断当前服务器类型
+     * 如果是作为服务器使用，则需要验证当前用户
+     * 如果是作为发送邮件的客户端使用，则跳过验证用户
+     * @param smtpThread
+     */
     private void processHelo(SMTPThread smtpThread) {
         int serverType = smtpThread.getCurrentServerType();
         if (serverType == Constants.SERVER_TYPE_FOR_CLIENT) {
@@ -77,26 +95,41 @@ public class SMTPCmdQueue {
         }
     }
 
+    /**
+     * 处理Auth指令
+     */
     private void processAuth() {
         cmdQueue.remove();
         cmdQueue.add(new Login());
     }
 
+    /**
+     * 处理Login指令
+     */
     private void processLogin() {
         cmdQueue.remove();
         cmdQueue.add(new Mail());
     }
 
+    /**
+     * 处理Mail指令
+     */
     private void processMail() {
         cmdQueue.remove();
         cmdQueue.add(new Rcpt());
     }
 
+    /**
+     * 处理Rcpt指令
+     */
     private void processRcpt() {
         cmdQueue.remove();
         cmdQueue.add(new Data());
     }
 
+    /**
+     * 处理Data指令
+     */
     private void processData() {
         cmdQueue.remove();
         cmdQueue.add(new SendEmail());
