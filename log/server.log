@@ -268,3 +268,16 @@ Hello World!done!
 1593 [main] INFO com.ddling.server.smtp.SMTPClient - Send Email Content done!
 1678 [main] DEBUG com.ddling.server.smtp.SMTPClient - 221 Bye
 1678 [main] INFO com.ddling.server.smtp.SMTPClient - Quit Done!
+539 [main] INFO com.ddling.server.smtp.SMTPClient - Connect to mx3.qq.com At port 25
+907 [main] DEBUG com.ddling.server.smtp.SMTPClient - 220 newmx10.qq.com MX QQ Mail Server
+907 [main] INFO com.ddling.server.smtp.SMTPClient - Connect to mx3.qq.comdone!
+1092 [main] DEBUG com.ddling.server.smtp.SMTPClient - 250 newmx10.qq.com
+1092 [main] INFO com.ddling.server.smtp.SMTPClient - ehlo done!
+1251 [main] DEBUG com.ddling.server.smtp.SMTPClient - 250 Ok
+1457 [main] DEBUG com.ddling.server.smtp.SMTPClient - 250 Ok
+1457 [main] INFO com.ddling.server.smtp.SMTPClient - Send Email Header done!
+1633 [main] DEBUG com.ddling.server.smtp.SMTPClient - 354 End data with <CR><LF>.<CR><LF>
+2261 [main] DEBUG com.ddling.server.smtp.SMTPClient - 250 Ok: queued as 
+2261 [main] INFO com.ddling.server.smtp.SMTPClient - Send Email Content done!
+2404 [main] DEBUG com.ddling.server.smtp.SMTPClient - 221 Bye
+2404 [main] INFO com.ddling.server.smtp.SMTPClient - Quit Done!

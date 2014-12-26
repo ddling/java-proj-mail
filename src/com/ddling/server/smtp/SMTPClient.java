@@ -16,13 +16,20 @@ import java.util.StringTokenizer;
  */
 public class SMTPClient {
 
+    // 得到log实例
     public Logger logger = LoggerFactory.getLogger(SMTPClient.class);
 
+    // 与服务器相连的Socket
     private Socket socket = null;
+    // 从socket里面读取数据
     private BufferedReader in = null;
+    // 往socket里面写入数据
     private PrintWriter out = null;
+    // 得到合适的服务器地址
     private String server = null;
+    // 与服务器地址相对应的端口号
     private int port;
+    // 一条邮件信息，包含邮件头以及邮件正文
     private MailContent mailContent = null;
 
     public SMTPClient() {
@@ -39,6 +46,9 @@ public class SMTPClient {
         this.port = port;
     }
 
+    /**
+     * 初始化邮件服务器信息，包括得到邮件地址以及对应的端口号
+     */
     private void initilizeTheServer() {
         int serverPos = mailContent.getTo().indexOf("@");
         server = mailContent.getTo().substring(serverPos + 1);
@@ -57,6 +67,10 @@ public class SMTPClient {
         }
     }
 
+    /**
+     * 发送邮件
+     * @return 发送成功返回true， 发送失败返回false
+     */
     public boolean sendEmail() {
         boolean sendEmailOK = true;
 
@@ -76,6 +90,10 @@ public class SMTPClient {
         return sendEmailOK;
     }
 
+    /**
+     * 向邮件服务器请求退出
+     * @throws IOException
+     */
     private void quit() throws IOException {
         sendData("QUIT");
 
@@ -88,6 +106,10 @@ public class SMTPClient {
         logger.info("Quit Done!");
     }
 
+    /**
+     * 发送邮件正文
+     * @throws IOException
+     */
     private void sendEmailContent() throws IOException{
 
         sendData("DATA");
@@ -109,6 +131,10 @@ public class SMTPClient {
         logger.info("Send Email Content done!");
     }
 
+    /**
+     * 发送邮件头，即(mail from, rcpt to以及subject)
+     * @throws IOException
+     */
     private void sendEmailHeader() throws IOException{
 
         sendData("MAIL FROM:<" + mailContent.getFrom() + ">");
@@ -130,6 +156,10 @@ public class SMTPClient {
         logger.info("Send Email Header done!");
     }
 
+    /**
+     * 向邮件服务器发送helo指令
+     * @throws IOException
+     */
     private void ehlo() throws IOException{
         sendData("HELO " + server);
 
@@ -142,11 +172,18 @@ public class SMTPClient {
         logger.info("ehlo done!");
     }
 
+    /**
+     * 发送字符串给邮件服务器
+     * @param s 要发送的字符串
+     */
     private void sendData(String s) {
         out.println(s);
         out.flush();
     }
 
+    /**
+     * 初始化smtp客户端
+     */
     private void initClient() {
         logger.info("Connect to " + server + " At port " + port);
 
@@ -167,6 +204,10 @@ public class SMTPClient {
         }
     }
 
+    /**
+     * 得到服务器的响应信息
+     * @return
+     */
     private int getResponse() {
 
         String line = "";
@@ -181,6 +222,9 @@ public class SMTPClient {
         return Integer.parseInt(get.nextToken());
     }
 
+    /**
+     * 关闭smtp客户端
+     */
     public void closeTheClient() {
         if (socket != null) {
             try {
