@@ -7,4 +7,5 @@ public class Constants {
 
     public static int   SERVER_TYPE_FOR_SERVER = 0;
     public static int   SERVER_TYPE_FOR_CLIENT = 1;
+    public static String DB_FILE_NAME = "mail.db";
 }

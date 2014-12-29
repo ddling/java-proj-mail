@@ -2,7 +2,6 @@ package com.ddling.User;
 
 import com.ddling.DBManage.DBManage;
 
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;
@@ -48,10 +47,21 @@ public class UserManage {
         dbManage.close();
     }
 
+    public void deleteUser(String username) {
+
+        DBManage dbManage = new DBManage();
+
+        String sql = String.format("DELETE FROM USER WHERE username = '%s'", username);
+
+        dbManage.executeUpdate(sql);
+
+        dbManage.close();
+    }
+
     public static void main(String[] args) {
         UserManage userManage = new UserManage();
 
-        User user = new User("kkk", "sss", "sdsdsd");
-        userManage.insertNewUser(user);
+        userManage.deleteUser("ddd");
+
     }
 }

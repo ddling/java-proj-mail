@@ -1,5 +1,6 @@
 package com.ddling.DBManage;
 
+import com.ddling.utils.Constants;
 import com.ddling.utils.LoggerFactory;
 import org.apache.log4j.Logger;
 
@@ -25,7 +26,7 @@ public class DBManage {
     public DBManage() {
         try {
             Class.forName("org.sqlite.JDBC");
-            connection = DriverManager.getConnection("jdbc:sqlite:mail.db");
+            connection = DriverManager.getConnection("jdbc:sqlite:" + Constants.DB_FILE_NAME);
             connection.setAutoCommit(false);
         } catch (ClassNotFoundException e) {
             logger.error("org.sqlite.JDBC class Not Found!");
