@@ -15,28 +15,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.ddling.server.smtp.State;
-
-import com.ddling.mailmanage.MailManage;
-import com.ddling.server.smtp.SMTPThread;
+package com.ddling.mailmanage;
 
 /**
- * Created by lingdongdong on 14/12/25.
+ * Created by lingdongdong on 14/12/29.
  */
-public class SendEmail extends State {
+public class MailManage {
 
-    private StringBuffer stringBuffer = new StringBuffer();
+    public void handleMail(int smtp_server_type, Mail mail) {
 
-    public boolean process(SMTPThread smtpThread, String str) {
-
-        if (".".equals(str)) {
-            smtpThread.getMail().setContent(stringBuffer.toString());
-            MailManage mailManage = new MailManage();
-            mailManage.handleMail(smtpThread.getCurrentServerType(), smtpThread.getMail());
-            return true;
-        }
-
-        stringBuffer.append(str + "\r\n");
-        return false;
     }
 }

@@ -1,5 +1,23 @@
+/*
+ * Copyright (C) 2014 lingdongdong
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 package com.ddling.server.smtp;
 
+import com.ddling.mailmanage.Mail;
 import com.ddling.utils.LoggerFactory;
 import org.apache.log4j.Logger;
 
@@ -21,14 +39,14 @@ public class SMTPThread implements Runnable {
     private int            cureent_server_Type = -1;
     private Socket         clientSocket        = null;
     private SMTPCmdQueue   smtpCmdQueue        = null;
-    private MailContent    mailContent         = null;
+    private Mail           mail         = null;
 
     public static Logger logger = LoggerFactory.getLogger(SMTPThread.class);
 
     public SMTPThread(Socket clientSocket, int server_type) {
         this.clientSocket   = clientSocket;
         cureent_server_Type = server_type;
-        mailContent = new MailContent();
+        mail = new Mail();
     }
 
     /**
@@ -44,12 +62,12 @@ public class SMTPThread implements Runnable {
         return cureent_server_Type;
     }
 
-    public MailContent getMailContent() {
-        return mailContent;
+    public Mail getMail() {
+        return mail;
     }
 
-    public void setMailContent(MailContent mailContent) {
-        this.mailContent = mailContent;
+    public void setMail(Mail mailContent) {
+        this.mail = mailContent;
     }
 
     /**

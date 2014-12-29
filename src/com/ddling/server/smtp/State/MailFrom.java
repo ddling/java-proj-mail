@@ -1,14 +1,29 @@
+/*
+ * Copyright (C) 2014 lingdongdong
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 package com.ddling.server.smtp.State;
 
 import com.ddling.server.smtp.SMTPThread;
-
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.util.regex.*;
 
 /**
  * Created by lingdongdong on 14/12/25.
  */
-public class Rcpt extends State {
+public class MailFrom extends State {
 
     public boolean process(SMTPThread smtpThread, String str) {
 
@@ -20,13 +35,13 @@ public class Rcpt extends State {
             return false;
         }
 
-        if (arg == "") {
-            smtpThread.printToClient("");
+        if (arg.equals("")) {
+            smtpThread.printToClient("500 Error: bad syntax");
             return false;
         }
 
         if (validEmailAddress(arg)) {
-            smtpThread.getMailContent().setTo(getMailAddress(arg));
+            smtpThread.getMail().setFrom(getMailAddress(arg));
             smtpThread.printToClient("250 Mail OK");
             return true;
         } else {
@@ -44,7 +59,7 @@ public class Rcpt extends State {
         }
 
         String args[] = arg.split(":");
-        if (args[0].equals("to") && isEmailAddress(getMailAddress(arg))) {
+        if (args[0].equals("from") && isEmailAddress(getMailAddress(arg))) {
             flag = true;
         }
         return flag;

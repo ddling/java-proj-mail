@@ -1,4 +1,21 @@
-package com.ddling.DBManage;
+/*
+ * Copyright (C) 2014 lingdongdong
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+package com.ddling.dbmanage;
 
 import com.ddling.utils.Constants;
 import com.ddling.utils.LoggerFactory;
@@ -17,13 +34,32 @@ public class DBManage {
 
     public Logger logger = LoggerFactory.getLogger(DBManage.class);
 
+    private volatile static DBManage dbManageInstance = null;
     private Connection connection = null;
 
-    public Connection getConnection() {
-        return connection;
+    /**
+     * 双重检查加锁，防止多个用户同时修改数据库文件出错
+     * 单件模式
+     * @return 返回DBManage的实例
+     */
+    public static DBManage getDbManageInstance() {
+
+        if (dbManageInstance == null) {
+            synchronized (DBManage.class) {
+                if (dbManageInstance == null) {
+                    dbManageInstance = new DBManage();
+                }
+            }
+        }
+
+        return dbManageInstance;
     }
 
+    /**
+     * 构造函数，初始化数据库连接
+     */
     public DBManage() {
+
         try {
             Class.forName("org.sqlite.JDBC");
             connection = DriverManager.getConnection("jdbc:sqlite:" + Constants.DB_FILE_NAME);
@@ -37,7 +73,13 @@ public class DBManage {
         logger.info("open db successfully!");
     }
 
+    /**
+     * 执行数据库查询
+     * @param sql 执行查询的sql语句
+     * @return  返回一个结果集
+     */
     public ResultSet executeQuery(String sql) {
+
         ResultSet resultSet = null;
         try {
             Statement statement = connection.createStatement();
@@ -50,7 +92,12 @@ public class DBManage {
         return resultSet;
     }
 
+    /**
+     * 执行数据库的Update操作
+     * @param sql 执行数据库Update的sql语句
+     */
     public void executeUpdate(String sql) {
+
         try {
             Statement statement = connection.createStatement();
             statement.executeUpdate(sql);
@@ -61,29 +108,24 @@ public class DBManage {
             e.printStackTrace();
             logger.error("Create Update Statement sql fail!");
         }
+
     }
 
+    /**
+     * 关闭数据库连接
+     */
     public void close() {
-        try {
-            connection.close();
-        } catch (SQLException e) {
-            logger.error("Close the Sqlite connection fail!");
+
+        if (connection != null) {
+
+            try {
+                connection.close();
+                connection = null;
+            } catch (SQLException e) {
+                logger.error("Close the Sqlite connection fail!");
+            }
+
+            logger.info("Close the Sqlite connection Successfully!");
         }
-
-        logger.info("Close the Sqlite connection Successfully!");
-    }
-
-    public static void main(String[] args) {
-        Connection connection = null;
-        try {
-            Class.forName("org.sqlite.JDBC");
-            connection = DriverManager.getConnection("jdbc:sqlite:mail.db");
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        System.out.print("Open Done!!");
     }
 }

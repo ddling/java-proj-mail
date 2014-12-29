@@ -1,5 +1,23 @@
+/*
+ * Copyright (C) 2014 lingdongdong
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 package com.ddling.server.smtp;
 
+import com.ddling.mailmanage.Mail;
 import com.ddling.server.smtp.mx.MXExchange;
 import com.ddling.utils.LoggerFactory;
 import org.apache.log4j.Logger;
@@ -30,14 +48,14 @@ public class SMTPClient {
     // 与服务器地址相对应的端口号
     private int port;
     // 一条邮件信息，包含邮件头以及邮件正文
-    private MailContent mailContent = null;
+    private Mail mail = null;
 
     public SMTPClient() {
         logger.info("Start a smtp client");
     }
 
-    public SMTPClient(MailContent mailContent) {
-        this.mailContent = mailContent;
+    public SMTPClient(Mail mail) {
+        this.mail = mail;
         initilizeTheServer();
     }
 
@@ -50,8 +68,8 @@ public class SMTPClient {
      * 初始化邮件服务器信息，包括得到邮件地址以及对应的端口号
      */
     private void initilizeTheServer() {
-        int serverPos = mailContent.getTo().indexOf("@");
-        server = mailContent.getTo().substring(serverPos + 1);
+        int serverPos = mail.getTo().indexOf("@");
+        server = mail.getTo().substring(serverPos + 1);
 
         if (server.equals("gmail.com")) {
             port = 465;
@@ -120,7 +138,7 @@ public class SMTPClient {
             throw new IOException("Send Email content fail");
         }
 
-        sendData(mailContent.getMailContent());
+        sendData(mail.getContent());
         sendData(".");
 
         response = getResponse();
@@ -137,7 +155,7 @@ public class SMTPClient {
      */
     private void sendEmailHeader() throws IOException{
 
-        sendData("MAIL FROM:<" + mailContent.getFrom() + ">");
+        sendData("MAIL FROM:<" + mail.getFrom() + ">");
 
         int response = getResponse();
 
@@ -145,7 +163,7 @@ public class SMTPClient {
             throw new IOException("Send Email Header fail!");
         }
 
-        sendData("RCPT TO:<" + mailContent.getTo() + ">");
+        sendData("RCPT TO:<" + mail.getTo() + ">");
 
         response = getResponse();
 
@@ -236,21 +254,18 @@ public class SMTPClient {
     }
 
     public static void main(String[] args) {
-        System.out.println("fsdfa");
-        MailContent mailContent = new MailContent();
-        mailContent.setFrom("jtdx_159020@sohu.com");
-        mailContent.setTo("465391062@qq.com");
-        mailContent.setFrom("wangtaoking1@127.0.0.1");
-        mailContent.setTo("sysuyezhiqi@163.com");
-        mailContent.setSubject("Hello");
-        String body = "from:<" + mailContent.getFrom() + ">" + "\n";
-        body += "to:<" + mailContent.getTo() + ">" + "\n";
+        Mail mail = new Mail();
+        mail.setFrom("jtdx_159020@sohu.com");
+        mail.setTo("465391062@qq.com");
+//        mail.setFrom("wangtaoking1@127.0.0.1");
+//        mail.setTo("sysuyezhiqi@163.com");
+        mail.setSubject("Hello");
+        String body = "from:<" + mail.getFrom() + ">" + "\n";
+        body += "to:<" + mail.getTo() + ">" + "\n";
         body += "Subject:This is a test email" + "\n";
         body += "\n";
         body += "Hello World!";
-        System.out.println(body);
-        mailContent.setMailContent(body);
-        SMTPClient smtpClient = new SMTPClient(mailContent);
+        SMTPClient smtpClient = new SMTPClient(mail);
         smtpClient.sendEmail();
     }
 }
