@@ -66,8 +66,8 @@ public class SMTPThread implements Runnable {
         return mail;
     }
 
-    public void setMail(Mail mailContent) {
-        this.mail = mailContent;
+    public void setMail(Mail mail) {
+        this.mail = mail;
     }
 
     /**
@@ -108,6 +108,18 @@ public class SMTPThread implements Runnable {
         while (true) {
             try {
                 String cmd = in.readLine();
+
+                if (cmd.toLowerCase().equals("quit")) {
+                    close();
+                    break;
+                }
+
+                if (cmd.toLowerCase().equals("noop")) {
+                    // NOOP
+                    printToClient("250 OK");
+                    continue;
+                }
+
                 smtpCmdQueue.process(this, cmd);
                 if (clientSocket == null) {
                     break;

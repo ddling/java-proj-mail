@@ -18,7 +18,10 @@
 package com.ddling.server.smtp.State;
 
 import com.ddling.mailmanage.MailManage;
+import com.ddling.server.smtp.SMTPService;
 import com.ddling.server.smtp.SMTPThread;
+
+import java.util.Date;
 
 /**
  * Created by lingdongdong on 14/12/25.
@@ -31,8 +34,12 @@ public class SendEmail extends State {
 
         if (".".equals(str)) {
             smtpThread.getMail().setContent(stringBuffer.toString());
-            MailManage mailManage = new MailManage();
-            mailManage.handleMail(smtpThread.getCurrentServerType(), smtpThread.getMail());
+            SMTPService smtpService = new SMTPService();
+            smtpService.handleEmail(smtpThread, smtpThread.getMail());
+
+            long date = new Date().getTime();
+            String dateStr = date + "";
+            smtpThread.printToClient("250 Mail OK queued as smtp12,EMCowECp3SK+FqJUzWGdBw--.997S2 " + dateStr);
             return true;
         }
 

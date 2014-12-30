@@ -19,6 +19,7 @@ package com.ddling.server.smtp;
 
 import com.ddling.mailmanage.Mail;
 import com.ddling.server.smtp.mx.MXExchange;
+import com.ddling.utils.Constants;
 import com.ddling.utils.LoggerFactory;
 import org.apache.log4j.Logger;
 
@@ -54,9 +55,14 @@ public class SMTPClient {
         logger.info("Start a smtp client");
     }
 
-    public SMTPClient(Mail mail) {
+    public SMTPClient(Mail mail, int localOrForeign) {
         this.mail = mail;
-        initilizeTheServer();
+
+        if (localOrForeign == Constants.CLIENT_SEND_TO_FOREIGN) {
+            initilizeTheServer();
+        } else if (localOrForeign == Constants.CLIENT_SEND_TO_LOCAL) {
+            setServerAddressAndPort(Constants.LOCAL_SMTP_SERVER_ADDRESS, Constants.LOCAL_SMTP_SERVER_PORT);
+        }
     }
 
     public void setServerAddressAndPort(String server, int port) {
@@ -265,7 +271,7 @@ public class SMTPClient {
         body += "Subject:This is a test email" + "\n";
         body += "\n";
         body += "Hello World!";
-        SMTPClient smtpClient = new SMTPClient(mail);
+        SMTPClient smtpClient = new SMTPClient(mail, Constants.CLIENT_SEND_TO_LOCAL);
         smtpClient.sendEmail();
     }
 }

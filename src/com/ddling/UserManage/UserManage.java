@@ -71,8 +71,6 @@ public class UserManage {
                                    username, password, email, registerTime);
 
         dbManage.executeUpdate(sql);
-
-        dbManage.close();
     }
 
     /**
@@ -98,8 +96,6 @@ public class UserManage {
             e.printStackTrace();
         }
 
-        dbManage.close();
-
         return hasThisUser;
     }
 
@@ -115,13 +111,40 @@ public class UserManage {
 
         dbManage.executeUpdate(sql);
 
-        dbManage.close();
+    }
 
+    /**
+     * 判断用户名和密码是否验证成功
+     * @param username 要验证的用户名
+     * @param password 要验证的用户密码
+     * @return
+     */
+    public boolean authUser(String username, String password) {
+
+        boolean authUserOK = false;
+
+        String sql = String.format(
+                "SELECT * FROM USER WHERE username = '%s' AND password = '%s'", username, password);
+
+        DBManage dbManage = DBManage.getDbManageInstance();
+        ResultSet resultSet = dbManage.executeQuery(sql);
+
+        try {
+            if (resultSet.next()) {
+                authUserOK = true;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return authUserOK;
     }
 
     public static void main(String[] args) {
         UserManage userManage = new UserManage();
 
-        userManage.insertNewUser(new User("aa", "bb", "cc"));
+//        userManage.insertNewUser(new User("aa", "bb", "cc"));
+        System.out.println(userManage.authUser("aa", "cc"));
+        System.out.println(userManage.authUser("bb", "cc"));
     }
 }

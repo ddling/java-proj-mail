@@ -90,6 +90,7 @@ public class SMTPCmdQueue {
             if (currentState instanceof SendEmail) {
                 if (currentState.process(smtpThread, cmd)) {
                     cmdQueue.remove();
+                    System.out.println("send Email OK");
                 }
             }
         }
